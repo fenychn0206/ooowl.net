@@ -1,0 +1,32 @@
+---
+import { getEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const pageTitle = "友情链接 | Frederick's Blog";
+const pageDescription = "我的朋友们";
+
+// Load Markdown content from src/content/friends/index.md
+const entry = await getEntry("friends", "index");
+if (!entry) {
+  throw new Error("Missing content entry: friends/index.md");
+}
+const { Content } = await entry.render();
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  className="max-w-100px flex flex-col justify-center"
+>
+  <main>
+    <a
+      href="/friends/"
+      class="text-zinc-500 hover:underline dark:text-zinc-500"
+    >
+      &larr; 返回友情链接
+    </a>
+    <article class="prose dark:prose-invert">
+      <Content />
+    </article>
+  </main>
+</Layout>

@@ -1,0 +1,45 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Artalk from "../../components/Artalk.astro";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"posts">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout
+  title={post.data.title + " | Frederick's Blog"}
+  description={post.data.description}
+  image={post.data.image}
+  className="flex h-svh max-w-4xl flex-col"
+>
+  <main class="pb-16">
+    <h1 class="mb-3 text-center text-xl font-medium">
+      {post.data.title}
+    </h1>
+    {
+      post.data.description && (
+        <p class="mb-3 text-center text-sm text-zinc-600 dark:text-zinc-400">
+          {post.data.description}
+        </p>
+      )
+    }
+    <p class="mb-1 text-center font-medium text-zinc-500">
+      {formatDate(post.data.date)}
+    </p>
+    <article>
+      <Content />
+    </article>
+    <Artalk pageKey={Astro.url.pathname} pageTitle={post.data.title} />
+  </main>
+</Layout>

@@ -1,0 +1,49 @@
+---
+import { Icon } from "astro-icon/components";
+import { EMAIL } from "../consts";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="mb-6 flex items-center justify-between" transition:name="header">
+  <nav class="flex items-center gap-4">
+    <a href="/">起始页</a>
+    <a href="/posts/1/">时间线</a>
+    <a href="/friends/">朋友们</a>
+  </nav>
+  <div class="flex items-center gap-2">
+    <a
+      href={`mailto:${EMAIL}`}
+      title="电子邮"
+      aria-label="电子邮"
+      class="inline-flex items-center text-zinc-500 no-underline hover:text-zinc-900 dark:hover:text-zinc-100"
+    >
+      <Icon
+        name="material-symbols:alternate-email"
+        width="20"
+        height="20"
+        class="leading-none"
+      />
+    </a>
+    <a
+      href="https://www.travellings.cn/go.html"
+      title="开往 · 友链接力"
+      target="_blank"
+      aria-label="开往 · 友链接力"
+      class="inline-flex items-center text-zinc-500 no-underline hover:text-zinc-900 dark:hover:text-zinc-100"
+    >
+      <Icon
+        name="material-symbols:train-outline"
+        width="20"
+        height="20"
+        class="leading-none"
+      />
+    </a>
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  a {
+    @apply font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100;
+  }
+</style>

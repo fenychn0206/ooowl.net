@@ -1,0 +1,78 @@
+---
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+
+export async function getStaticPaths({ paginate }: any) {
+  const collection = await getCollection("posts");
+  const posts = collection.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+
+  return paginate(posts, { pageSize: 7 });
+}
+
+const { page }: { page: Page<CollectionEntry<"posts">> } = Astro.props;
+---
+
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  className="max-w-100px flex h-svh flex-col justify-center"
+>
+  <main class="flex flex-col gap-4">
+    <ul class="flex flex-col gap-1.5">
+      {
+        page.data.map((post: any) => (
+          <li>
+            <a href={`/posts/${post.slug}/`} class="group flex flex-col gap-1">
+              <div class="flex justify-between gap-3">
+                <span class="group-hover:underline">{post.data.title}</span>
+                <span class="text-nowrap text-zinc-500">
+                  {formatDate(post.data.date)}
+                </span>
+              </div>
+              {post.data.description && (
+                <span class="text-sm text-zinc-400 dark:text-zinc-400">
+                  {post.data.description}
+                </span>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- 分页导航 -->
+    {
+      page.lastPage > 1 && (
+        <nav class="flex items-center justify-center gap-2 text-sm">
+          {page.url.prev && (
+            <a
+              href={page.url.prev}
+              class="text-zinc-700 hover:underline dark:text-zinc-300"
+            >
+              &larr; 上一页
+            </a>
+          )}
+
+          <span class="text-zinc-500">
+            第 {page.currentPage} / {page.lastPage} 页
+          </span>
+
+          {page.url.next && (
+            <a
+              href={page.url.next}
+              class="text-zinc-700 hover:underline dark:text-zinc-300"
+            >
+              下一页 &rarr;
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </main>
+</Layout>

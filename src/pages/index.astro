@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import Heatmap from "../components/Heatmap.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Layout from "../layouts/Layout.astro";
+import { formatDate } from "../lib/utils";
+
+// 获取所有文章并按日期排序，取最新两篇
+const allPosts = await getCollection("posts");
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const latestPosts = sortedPosts.slice(0, 2);
+---
+
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  className="flex h-svh max-w-sm flex-col justify-center"
+>
+  <main class="space-y-4">
+    <Heatmap />
+
+    <!-- 最新文章列表 -->
+    <ul class="flex flex-col gap-1.5">
+      <div class="space-y-3">
+        {
+          latestPosts.map((post) => (
+            <li>
+              <a
+                href={`/posts/${post.slug}/`}
+                class="group flex justify-between gap-3"
+              >
+                <span class="group-hover:underline">{post.data.title}</span>
+                <span class="text-nowrap text-zinc-500">
+                  {formatDate(post.data.date)}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </div>
+      <li>
+        <a
+          href="/posts/1/"
+          class="text-zinc-500 hover:underline dark:text-zinc-500"
+        >
+          文章列表 &rarr;
+        </a>
+      </li>
+    </ul>
+  </main>
+</Layout>

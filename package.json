@@ -1,0 +1,60 @@
+{
+  "name": "feny-blog",
+  "type": "module",
+  "version": "4.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.2",
+    "@astrojs/rss": "^4.0.9",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "@fontsource/noto-sans-mono": "^5.2.10",
+    "@fontsource/noto-sans-sc": "^5.2.9",
+    "@fontsource/noto-serif-sc": "^5.2.9",
+    "artalk": "^2.9.1",
+    "astro": "^5.1.0",
+    "clsx": "^2.1.1",
+    "lxgw-wenkai-screen-webfont": "^1.7.0",
+    "lxgw-wenkai-webfont": "^1.7.0",
+    "markdown-it": "^14.1.0",
+    "material-symbols": "^0.40.2",
+    "remark-gfm": "^4.0.1",
+    "remark-github-blockquote-alert": "^2.0.1",
+    "sanitize-html": "^2.17.0",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@iconify-json/material-symbols": "^1.2.55",
+    "astro-icon": "^1.1.5",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro-organize-imports": "^0.4.11",
+    "prettier-plugin-tailwindcss": "^0.6.8"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-astro",
+      "prettier-plugin-tailwindcss",
+      "prettier-plugin-astro-organize-imports"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
+  }
+}
