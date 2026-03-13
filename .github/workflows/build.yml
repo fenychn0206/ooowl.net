@@ -1,4 +1,4 @@
-name: Astro 1Panel 自动部署
+name: Astro 1Panel Depoly
 
 on:
   push:
