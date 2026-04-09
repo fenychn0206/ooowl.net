@@ -24,30 +24,61 @@ const {
     <!-- Global Metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- Tell the browser we support both schemes (prevents UA auto-darkening + helps form controls/scrollbars) -->
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <!-- Theme initialization - must run before any rendering to prevent flash -->
+    <!-- Theme initialization - must run before paint to prevent dark-mode "white flash" -->
     <script is:inline>
-      // 立即执行，防止首次加载闪烁
-      const getTheme = () => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      };
+      (() => {
+        const STORAGE_KEY = "theme";
 
-      const theme = getTheme();
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-      }
+        function getStoredTheme() {
+          try {
+            const theme = localStorage.getItem(STORAGE_KEY);
+            return theme === "dark" || theme === "light" ? theme : null;
+          } catch {
+            return null;
+          }
+        }
+
+        function getSystemTheme() {
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        function resolveTheme() {
+          return getStoredTheme() ?? getSystemTheme();
+        }
+
+        function applyTheme(doc) {
+          const theme = resolveTheme();
+          doc.documentElement.classList.toggle("dark", theme === "dark");
+        }
+
+        // 1) First paint
+        applyTheme(document);
+
+        // 2) Astro View Transitions swaps <html> attributes from the next document.
+        //    Apply theme to `event.newDocument` so the swapped-in <html> keeps the "dark" class.
+        document.addEventListener("astro:before-swap", (event) => {
+          // Astro provides `newDocument` on the event object.
+          const newDocument = event?.newDocument;
+          if (newDocument) applyTheme(newDocument);
+        });
+
+        // 3) Re-apply after navigation just in case
+        document.addEventListener("astro:page-load", () => applyTheme(document));
+
+        // 4) If user never chose a theme, follow system changes live
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        media.addEventListener("change", () => {
+          if (getStoredTheme() === null) applyTheme(document);
+        });
+      })();
     </script>
 
     <meta name="title" content={title} />
@@ -74,11 +105,19 @@ const {
 
     <ViewTransitions />
     <style is:inline>
-      :root { --app-bg: #ffffff; }
-      html.dark { --app-bg: #0a0a0a; }
+      :root {
+        --app-bg: #ffffff;
+        background-color: var(--app-bg);
+        color-scheme: light;
+      }
+      html.dark {
+        --app-bg: #18181b;
+        background-color: var(--app-bg);
+        color-scheme: dark;
+      }
       ::view-transition-old(root),
       ::view-transition-new(root) {
-        background: var(--app-bg);
+        background: var(--app-bg) !important;
       }
     </style>
   </head>
@@ -91,27 +130,3 @@ const {
     </div>
   </body>
 </html>
-
-<script is:inline>
-  // 处理 View Transitions 的生命周期
-  function applyTheme() {
-    const theme =
-      typeof localStorage !== "undefined" && localStorage.getItem("theme")
-        ? localStorage.getItem("theme")
-        : window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : light;
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.style.colorScheme = "dark";
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.style.colorScheme = "light";
-    }
-  }
-
-  // 在页面加载和 View Transitions 关键时机都应用主题，避免闪烁
-  document.addEventListener("astro:before-preparation", applyTheme);
-  document.addEventListener("astro:before-swap", applyTheme);
-  document.addEventListener("astro:page-load", applyTheme);
-</script>
