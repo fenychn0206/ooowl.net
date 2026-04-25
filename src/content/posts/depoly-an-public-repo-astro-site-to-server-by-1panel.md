@@ -20,7 +20,7 @@ date: 2026-03-13
 
 ![可恶的 bypass 要 pro](https://blog-assets.ooowl.net/images/20260218/20260218114445364.png)
 
-好好好，你不让我绕过你的防火墙，那我就不要你了呗。我不是还有一台服务器吗，直接上！
+好好好，你不让我绕过你的防火墙，那我就不要你了呗。我服务器摆在那里不是吃素的谢谢，直接上！
 
 参考六神的 [1Panel自动同步Github仓库](https://blog.liushen.fun/posts/327826ac/)，然后手搓了一个 Action 并让 Gemini 修了修一些问题，现在已经是完全的服务器部署啦～
 
@@ -41,8 +41,6 @@ date: 2026-03-13
 ![创建密钥](https://blog-assets.ooowl.net/images/20260313/20260313231020764.png)
 
 <img src="https://blog-assets.ooowl.net/images/20260313/20260313231110085.png" alt="存下私钥" style="zoom:33%;" />
-
-
 
 ## 配置仓库 Secrets
 
