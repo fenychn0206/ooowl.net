@@ -12,6 +12,4 @@ Frederick 的个人博客，于 2023 年建站。
 >
 > 本仓库不接受任何形式的 issue，博客相关问题请前往博客提出，感谢理解。\
 
----
-
 <samp><b>ooowl.net</b> &copy; fenychn0206<br>code is licensed under <a href="LICENSE">MIT License</a>, <br>posts are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-SA 4.0</a>.</samp>
