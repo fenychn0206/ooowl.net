@@ -162,7 +162,7 @@
       @apply rounded border border-b-2 bg-zinc-100 px-1 py-0.5 font-mono text-xs font-medium text-black dark:border-zinc-700 dark:bg-zinc-800 dark:text-white;
     }
     mark {
-      @apply dark:bg-yellow-500/50 dark:text-white;
+      @apply rounded-sm bg-yellow-200 px-0.5 text-inherit dark:bg-yellow-500/50 dark:text-white;
     }
     /* Footnotes */
     .footnotes {
