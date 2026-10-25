@@ -14,4 +14,4 @@ Frederick 的个人博客，于 2023 年建站。
 
 ---
 
-code is licensed under <a href="LICENSE">MIT License</a>, <br>posts are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-SA 4.0</a>.</samp>
+<samp>code is licensed under <a href="LICENSE">MIT License</a>, <br>posts are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-SA 4.0</a>.</samp>
