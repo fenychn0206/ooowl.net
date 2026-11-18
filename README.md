@@ -13,5 +13,5 @@ Frederick 的个人博客，于 2023 年建站。
 > 
 > 本仓库不接受任何形式的 issue，博客相关问题请前往博客提出，感谢理解。
 
-> Made with ❤️ by **Frederick Chen** ([@fenychn0206](https://github.com/fenychn0206)) | [Blog](https;//www.ooowl.net) · [Twitter](https://x.com/fenychn0206) · [Sponsor(Afdian)](https://afdian.com/a/fenychn0206)
+> Made with ❤️ by **Frederick Chen** ([@fenychn0206](https://github.com/fenychn0206)) | [Blog](https://www.ooowl.net) · [Twitter](https://x.com/fenychn0206) · [Sponsor(Afdian)](https://afdian.com/a/fenychn0206)
 > <br>Code is licensed under [MIT](LICENSE) and posts are licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
