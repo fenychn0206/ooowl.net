@@ -1,4 +1,4 @@
-# ooowl.net
+# [ooowl.net](https://www.ooowl.net/)
 
 Frederick 的个人博客，于 2023 年建站。
 
